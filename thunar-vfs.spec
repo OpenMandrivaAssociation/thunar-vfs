@@ -8,7 +8,7 @@
 Summary:	Virtual file system for Thunar
 Name:		thunar-vfs
 Version:	1.2.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 URL:		http://xfce.org
@@ -33,6 +33,7 @@ releases. It provides compatibility for applications that still use thunar-vfs.
 Summary:	Libraries for the %{name}
 Group:		Graphical desktop/Xfce
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	%{mklibname thunar 1 2} <= 1.0.2
 
 %description -n %{libname}
 Libraries for the %{name}.
