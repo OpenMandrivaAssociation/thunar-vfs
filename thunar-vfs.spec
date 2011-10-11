@@ -8,7 +8,7 @@
 Summary:	Virtual file system for Thunar
 Name:		thunar-vfs
 Version:	1.2.0
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 URL:		http://xfce.org
@@ -19,7 +19,11 @@ BuildRequires:	libpng-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:	gamin-devel
+%if %mdkver >= 201200
+Buildconflicts:	hal-devel
+%else
 BuildRequires:	hal-devel
+%endif
 BuildRequires:	libxfce4util-devel
 BuildRequires:	startup-notification-devel
 BuildRequires:	intltool
