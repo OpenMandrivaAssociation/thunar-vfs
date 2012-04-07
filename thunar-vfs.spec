@@ -8,12 +8,12 @@
 Summary:	Virtual file system for Thunar
 Name:		thunar-vfs
 Version:	1.2.0
-Release:	%mkrel 5
+Release:	6
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 URL:		http://xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
-BuildRequires:	exo-devel >= 0.6.0
+BuildRequires:	exo-devel >= 0.7.2
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libjpeg-devel
@@ -24,10 +24,9 @@ Buildconflicts:	hal-devel
 %else
 BuildRequires:	hal-devel
 %endif
-BuildRequires:	libxfce4util-devel
+BuildRequires:	libxfce4util-devel >= 4.9.0
 BuildRequires:	startup-notification-devel
 BuildRequires:	intltool
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 This package contains the virtual filesystem shipped with Thunar 1.0 and earlier
@@ -65,16 +64,11 @@ Development files for the %{name}.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
-%find_lang %{name}
-
-%clean
-rm -rf %{buildroot}
+%find_lang %{name} %{name}.lang
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS README NEWS
 %dir %{_libdir}/%{name}-%{apiversion}
 %dir %{_datadir}/thumbnailers
@@ -83,11 +77,9 @@ rm -rf %{buildroot}
 %{_datadir}/gtk-doc/html/thunar-vfs
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*%{apiversion}.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %dir %{_includedir}/%{name}-%{apiversion}
 %{_includedir}/%{name}-%{apiversion}/*
 %{_libdir}/lib*.so
