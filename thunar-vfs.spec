@@ -8,7 +8,7 @@
 Summary:	Virtual file system for Thunar
 Name:		thunar-vfs
 Version:	1.2.0
-Release:	6
+Release:	7
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 URL:		http://xfce.org
@@ -29,8 +29,9 @@ BuildRequires:	startup-notification-devel
 BuildRequires:	intltool
 
 %description
-This package contains the virtual filesystem shipped with Thunar 1.0 and earlier
-releases. It provides compatibility for applications that still use thunar-vfs.
+This package contains the virtual filesystem shipped with Thunar 1.0
+and earlier releases.
+It provides compatibility for applications that still use thunar-vfs.
 
 %package -n %{libname}
 Summary:	Libraries for the %{name}
@@ -56,10 +57,10 @@ Development files for the %{name}.
 
 %build
 %configure2_5x \
-    --enable-dbus \
-    --enable-startup-notification \
-    --enable-gnome-thumbnailers \
-    --disable-gtk-doc
+	--enable-dbus \
+	--enable-startup-notification \
+	--enable-gnome-thumbnailers \
+	--disable-gtk-doc
 
 %make
 
@@ -83,5 +84,4 @@ Development files for the %{name}.
 %dir %{_includedir}/%{name}-%{apiversion}
 %{_includedir}/%{name}-%{apiversion}/*
 %{_libdir}/lib*.so
-%{_libdir}/lib*.*a
 %{_libdir}/pkgconfig/*.pc
