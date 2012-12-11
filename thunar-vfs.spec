@@ -1,87 +1,100 @@
-%define url_ver %(echo %{version} | cut -c 1-3)
+%define url_ver	%(echo %{version}|cut -d. -f1,2)
 
-%define major 2
-%define apiversion 1
-%define libname %mklibname %{name} %{apiversion} %{major}
-%define develname %mklibname %{name} -d
+%define api	1
+%define major	2
+%define libname %mklibname %{name} %{api} %{major}
+%define devname %mklibname %{name} -d
 
-Summary:	Virtual file system for Thunar
-Name:		thunar-vfs
-Version:	1.2.0
-Release:	7
-License:	GPLv2+
-Group:		Graphical desktop/Xfce
-URL:		http://xfce.org
-Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
-BuildRequires:	exo-devel >= 0.7.2
-BuildRequires:	dbus-glib-devel
-BuildRequires:	libpng-devel
+Name:           thunar-vfs
+Version:        1.2.0
+Release:        %mkrel 2
+Summary:        Virtual filesystem shipped with Thunar 1.0 and earlier releases
+Group:          Graphical desktop/Xfce
+License:        LGPLv2+
+URL:            http://thunar.xfce.org
+Source0:        http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
+BuildRequires:	pkgconfig(dbus-glib-1) >= 0.34
+BuildRequires:	pkgconfig(exo-1) >= 0.6.0
+BuildRequires:	pkgconfig(gamin)
+BuildRequires:	pkgconfig(gconf-2.0) >= 2.4.0
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0) >= 2.10.0
+BuildRequires:	pkgconfig(glib-2.0) >= 2.12.0
+BuildRequires:	pkgconfig(gthread-2.0) >= 2.12.0
+BuildRequires:	pkgconfig(gtk+-2.0) >= 2.10.0
+BuildRequires:	pkgconfig(libpng) >= 1.2.0
+BuildRequires:	pkgconfig(libstartup-notification-1.0) >= 0.4
+BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.8.0
+BuildRequires:	freetype-devel
 BuildRequires:	libjpeg-devel
-BuildRequires:	libGConf2-devel
-BuildRequires:	gamin-devel
-%if %mdkver >= 201200
-Buildconflicts:	hal-devel
-%else
-BuildRequires:	hal-devel
-%endif
-BuildRequires:	libxfce4util-devel >= 4.9.0
-BuildRequires:	startup-notification-devel
 BuildRequires:	intltool
 
 %description
-This package contains the virtual filesystem shipped with Thunar 1.0
-and earlier releases.
-It provides compatibility for applications that still use thunar-vfs.
+Thunar-vfs contains the virtual filesystem shipped with Thunar 1.0 and
+earlier releases. It provides compatibility for applications that still
+use thunar-vfs while Thunar was ported to GVFS.
 
 %package -n %{libname}
-Summary:	Libraries for the %{name}
-Group:		Graphical desktop/Xfce
-Requires:	%{name} = %{version}-%{release}
-Obsoletes:	%{mklibname thunar 1 2} <= 1.0.2
+Summary:	Shared libraries for %{name}
+Group:		System/Libraries
+Requires:	%{name} >= %{version}-%{release}
+Conflicts:	%{name} < 1.2.0-2
 
 %description -n %{libname}
-Libraries for the %{name}.
+Thunar-vfs contains the virtual filesystem shipped with Thunar 1.0 and
+earlier releases. It provides compatibility for applications that still
+use thunar-vfs while Thunar was ported to GVFS.
 
-%package -n %{develname}
-Summary:	Development files for the thunar filemanager
+This package contains the shared libraries for %{name}.
+
+%package -n %{devname}
+Summary:	Development files for %{name}
 Group:		Development/Other
-Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%{name}-devel < 1.2.0-2
 
-%description -n %{develname}
-Development files for the %{name}.
+%description -n %{devname}
+Thunar-vfs contains the virtual filesystem shipped with Thunar 1.0 and
+earlier releases. It provides compatibility for applications that still
+use thunar-vfs while Thunar was ported to GVFS.
+
+This package contains the libraries and header files for developing
+applications that use %{name}.
 
 %prep
 %setup -q
 
 %build
 %configure2_5x \
-	--enable-dbus \
-	--enable-startup-notification \
-	--enable-gnome-thumbnailers \
-	--disable-gtk-doc
-
+	--disable-static
 %make
 
 %install
 %makeinstall_std
 
-%find_lang %{name} %{name}.lang
+#we don't want these
+find %{buildroot} -name '*.la' -delete
+
+%find_lang %{name}
+
+# remove duplicate docs
+rm -rf %{buildroot}%{_datadir}/doc
+
+%check
+make tests
 
 %files -f %{name}.lang
-%doc AUTHORS README NEWS
-%dir %{_libdir}/%{name}-%{apiversion}
-%dir %{_datadir}/thumbnailers
-%{_libdir}/%{name}-%{apiversion}/*
-%{_datadir}/thumbnailers/*.desktop
-%{_datadir}/gtk-doc/html/thunar-vfs
+%doc AUTHORS ChangeLog NEWS README 
+%doc docs/ThumbnailersCacheFormat.txt docs/README.volumes
+%{_datadir}/thumbnailers/thunar-vfs-font-thumbnailer-1.desktop
 
 %files -n %{libname}
-%{_libdir}/*%{apiversion}.so.%{major}*
+%{_libdir}/lib%{name}-%{api}.so.%{major}*
+%{_libdir}/thunar-vfs-*
 
-%files -n %{develname}
-%dir %{_includedir}/%{name}-%{apiversion}
-%{_includedir}/%{name}-%{apiversion}/*
-%{_libdir}/lib*.so
-%{_libdir}/pkgconfig/*.pc
+%files -n %{devname}
+%doc HACKING TODO
+%doc %{_datadir}/gtk-doc/html/%{name}/
+%{_includedir}/%{name}-%{api}/
+%{_libdir}/lib%{name}-%{api}.so
+%{_libdir}/pkgconfig/thunar-vfs-%{api}.pc
