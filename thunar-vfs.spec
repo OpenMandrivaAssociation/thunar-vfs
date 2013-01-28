@@ -7,7 +7,7 @@
 
 Name:           thunar-vfs
 Version:        1.2.0
-Release:        %mkrel 2
+Release:		3
 Summary:        Virtual filesystem shipped with Thunar 1.0 and earlier releases
 Group:          Graphical desktop/Xfce
 License:        LGPLv2+
