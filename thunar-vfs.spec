@@ -1,18 +1,18 @@
 %define url_ver	%(echo %{version}|cut -d. -f1,2)
 
-%define api	1
-%define major	2
+%define api 1
+%define major 2
 %define libname %mklibname %{name} %{api} %{major}
 %define devname %mklibname %{name} -d
 
-Name:           thunar-vfs
-Version:        1.2.0
-Release:		3
-Summary:        Virtual filesystem shipped with Thunar 1.0 and earlier releases
-Group:          Graphical desktop/Xfce
-License:        LGPLv2+
-URL:            http://thunar.xfce.org
-Source0:        http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
+Name:			thunar-vfs
+Version:		1.2.0
+Release:		4
+Summary:		Virtual filesystem shipped with Thunar 1.0 and earlier releases
+Group:			Graphical desktop/Xfce
+License:		LGPLv2+
+URL:			http://thunar.xfce.org
+Source0:		http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(dbus-glib-1) >= 0.34
 BuildRequires:	pkgconfig(exo-1) >= 0.6.0
 BuildRequires:	pkgconfig(gamin)
@@ -25,7 +25,7 @@ BuildRequires:	pkgconfig(libpng) >= 1.2.0
 BuildRequires:	pkgconfig(libstartup-notification-1.0) >= 0.4
 BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.8.0
 BuildRequires:	freetype-devel
-BuildRequires:	libjpeg-devel
+BuildRequires:	jpeg-devel
 BuildRequires:	intltool
 
 %description
