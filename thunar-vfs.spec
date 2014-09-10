@@ -5,14 +5,14 @@
 %define libname %mklibname %{name} %{api} %{major}
 %define devname %mklibname %{name} -d
 
-Name:			thunar-vfs
-Version:		1.2.0
-Release:		4
-Summary:		Virtual filesystem shipped with Thunar 1.0 and earlier releases
-Group:			Graphical desktop/Xfce
-License:		LGPLv2+
-URL:			http://thunar.xfce.org
-Source0:		http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
+Name:		thunar-vfs
+Version:	1.2.0
+Release:	5
+Summary:	Virtual filesystem shipped with Thunar 1.0 and earlier releases
+Group:		Graphical desktop/Xfce
+License:	LGPLv2+
+URL:		http://thunar.xfce.org
+Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(dbus-glib-1) >= 0.34
 BuildRequires:	pkgconfig(exo-1) >= 0.6.0
 BuildRequires:	pkgconfig(gamin)
@@ -98,4 +98,3 @@ make tests
 %{_includedir}/%{name}-%{api}/
 %{_libdir}/lib%{name}-%{api}.so
 %{_libdir}/pkgconfig/thunar-vfs-%{api}.pc
-
