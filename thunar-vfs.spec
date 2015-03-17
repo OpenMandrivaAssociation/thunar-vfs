@@ -7,7 +7,7 @@
 
 Name:		thunar-vfs
 Version:	1.2.0
-Release:	5
+Release:	5.1
 Summary:	Virtual filesystem shipped with Thunar 1.0 and earlier releases
 Group:		Graphical desktop/Xfce
 License:	LGPLv2+
@@ -23,7 +23,7 @@ BuildRequires:	pkgconfig(gthread-2.0) >= 2.12.0
 BuildRequires:	pkgconfig(gtk+-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(libpng) >= 1.2.0
 BuildRequires:	pkgconfig(libstartup-notification-1.0) >= 0.4
-BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.8.0
+BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.12.0
 BuildRequires:	freetype-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	intltool
